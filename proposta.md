@@ -28,5 +28,5 @@ Futuras funcionalidades que podem ser adicionadas incluem:
 ## Tecnologias
 
 - **Flutter**: O aplicativo será desenvolvido utilizando o Flutter, uma tecnologia de código aberto que permite criar aplicativos nativos para Android e iOS a partir de um único código base.
-- **Dart**: A linguagem de programação Dart será usada para a implementação do projeto, garantindo um código escalável e orientado a objetos.
+- **Dart**: A linguagem de programação [Dart](https://dart.dev/overview) será utilizada no desenvolvimento do projeto. Dart é uma linguagem que oferece suporte a uma programação orientada a objetos robusta e conta com recursos como [classes](https://dart.dev/language#classes), [herança](https://dart.dev/language#inheritance), e [interfaces](https://dart.dev/language#interfaces-and-abstract-classes), que facilitam a criação de código modular e escalável. Além disso, o Dart é uma linguagem [fortemente tipada](https://dart.dev/overview#language), o que ajuda a evitar erros comuns durante o desenvolvimento, e proporciona [ferramentas nativas](https://dart.dev/overview#platform) para a construção de interfaces reativas, promovendo alta performance e simplicidade no desenvolvimento.
 - **SQLite**: Para armazenamento local dos hábitos e seu histórico, será utilizada uma base de dados SQLite.
