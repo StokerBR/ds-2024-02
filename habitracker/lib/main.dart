@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:habitracker/global_variables.dart';
+import 'package:habitracker/pages/main_page.dart';
+import 'package:habitracker/theme.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +12,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      title: 'FitPredict',
+      home: const MainPage(),
+      theme: AppTheme.themeData,
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
