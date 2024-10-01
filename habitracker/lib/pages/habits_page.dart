@@ -14,6 +14,11 @@ class _HabitsPageState extends State<HabitsPage> {
       appBar: AppBar(
         title: const Text('Hábitos'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Adicionar hábito',
+        child: const Icon(Icons.add),
+      ),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.all(20),
