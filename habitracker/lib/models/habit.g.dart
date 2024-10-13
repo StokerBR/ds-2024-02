@@ -20,8 +20,8 @@ class HabitAdapter extends TypeAdapter<Habit> {
       key: fields[0] as String?,
       name: fields[1] as String,
       description: fields[2] as String?,
-      icon: fields[3] as String,
-      color: fields[4] as Color,
+      icon: fields[3] as int,
+      color: fields[4] as String,
     );
   }
 

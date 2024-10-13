@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitracker/pages/goals_page.dart';
-import 'package:habitracker/pages/habits_page.dart';
+import 'package:habitracker/pages/habits/habits_page.dart';
 import 'package:habitracker/pages/home_page.dart';
 import 'package:habitracker/theme.dart';
 

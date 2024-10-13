@@ -26,9 +26,9 @@ class Habit {
   @HiveField(2)
   String? description;
   @HiveField(3)
-  String icon;
+  int icon;
   @HiveField(4)
-  Color color;
+  String color;
 
   Habit({
     this.key,
@@ -48,7 +48,7 @@ class Habit {
       name: json['name'],
       description: json['description'],
       icon: json['icon'],
-      color: HexColor.fromHex(json['color']),
+      color: json['color'],
     );
   }
 
@@ -59,7 +59,7 @@ class Habit {
       'name': name,
       'description': description,
       'icon': icon,
-      'color': color.toHex(),
+      'color': color,
     };
   }
 }
@@ -67,25 +67,25 @@ class Habit {
 /// Classe que gerencia a persistência de hábitos
 class HabitRepository {
   // Salvar hábito no banco de dados
-  void saveHabit(Habit habit) {
+  static void saveHabit(Habit habit) {
     var box = Hive.box<Habit>('habits');
     box.put(habit.key, habit);
   }
 
   // Obter um hábito pela key
-  Habit? getHabit(String key) {
+  static Habit? getHabit(String key) {
     var box = Hive.box<Habit>('habits');
     return box.get(key);
   }
 
   // Obter todos os hábitos
-  List<Habit> getAllHabits() {
+  static List<Habit> getAllHabits() {
     var box = Hive.box<Habit>('habits');
     return box.values.toList();
   }
 
   // Deletar um hábito pela key
-  void deleteHabit(String key) {
+  static void deleteHabit(String key) {
     var box = Hive.box<Habit>('habits');
     box.delete(key);
   }
