@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habitracker/functions/hex_color.dart';
 import 'package:habitracker/models/habit.dart';
 import 'package:habitracker/pages/habits/habit_form_page.dart';
+import 'package:habitracker/services/habit_data_source.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HabitsPage extends StatefulWidget {
@@ -84,7 +85,7 @@ class _HabitsPageState extends State<HabitsPage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    HabitRepository.deleteHabit(habit.key!);
+                                    HabitRepository().deleteHabit(habit.key!);
                                     Navigator.of(context).pop();
                                   },
                                   child: const Text('Deletar'),

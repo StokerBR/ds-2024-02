@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitracker/functions/hex_color.dart';
 import 'package:habitracker/models/habit.dart';
+import 'package:habitracker/services/habit_data_source.dart';
 import 'package:habitracker/theme.dart';
 import 'package:habitracker/widgets/alert.dart';
 import 'package:habitracker/widgets/input.dart';
@@ -20,6 +21,8 @@ class HabitFormPage extends StatefulWidget {
 
 class _HabitFormPageState extends State<HabitFormPage> {
   Habit? _habit;
+
+  final _habitRepository = HabitRepository();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -46,7 +49,7 @@ class _HabitFormPageState extends State<HabitFormPage> {
       }
 
       // Salva o hábito
-      HabitRepository.saveHabit(_habit!);
+      _habitRepository.saveHabit(_habit!);
 
       Navigator.of(context).pop();
 
@@ -57,7 +60,7 @@ class _HabitFormPageState extends State<HabitFormPage> {
   @override
   void initState() {
     if (widget.habitKey != null) {
-      _habit = HabitRepository.getHabit(widget.habitKey!);
+      _habit = _habitRepository.getHabit(widget.habitKey!);
       if (_habit != null) {
         _nameController.text = _habit!.name;
         _descriptionController.text = _habit!.description ?? '';

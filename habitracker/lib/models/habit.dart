@@ -1,17 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:habitracker/functions/hex_color.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
 part 'habit.g.dart';
 // dart run build_runner build
-
-/**
- * Aplicação dos princípios SOLID neste arquivo:
- *  - Single Responsibility Principle (SRP): 
- *    Responsabilidades separadas em classes diferentes. 
- *    Habit é responsável por gerenciar o estado e representar um hábito e HabitRepository é responsável por lidar com a persistência de dados.
- */
 
 /// Classe que representa um hábito
 @HiveType(
@@ -29,6 +20,8 @@ class Habit {
   int icon;
   @HiveField(4)
   String color;
+  @HiveField(5)
+  List<DateTime> completedDays = [];
 
   Habit({
     this.key,
@@ -41,7 +34,12 @@ class Habit {
     key ??= const Uuid().v4();
   }
 
-  // Construtor de habit a partir de um json
+  /// Marca o hábito como completado na data informada
+  void markAsCompleted(DateTime date) {
+    completedDays.add(date);
+  }
+
+  /// Construtor de habit a partir de um json
   factory Habit.fromJson(Map<String, dynamic> json) {
     return Habit(
       key: json['key'],
@@ -52,7 +50,7 @@ class Habit {
     );
   }
 
-  // Converte o habit para um json
+  /// Converte o habit para um json
   Map<String, dynamic> toJson() {
     return {
       'key': key,
@@ -64,30 +62,43 @@ class Habit {
   }
 }
 
-/// Classe que gerencia a persistência de hábitos
-class HabitRepository {
-  // Salvar hábito no banco de dados
-  static void saveHabit(Habit habit) {
-    var box = Hive.box<Habit>('habits');
-    box.put(habit.key, habit);
-  }
+/// Hábito baseado em tempo
+class TimeBasedHabit extends Habit {
+  Duration targetDuration;
 
-  // Obter um hábito pela key
-  static Habit? getHabit(String key) {
-    var box = Hive.box<Habit>('habits');
-    return box.get(key);
-  }
+  TimeBasedHabit(String name, String description, String color, int icon,
+      this.targetDuration)
+      : super(
+          name: name,
+          description: description,
+          color: color,
+          icon: icon,
+        );
 
-  // Obter todos os hábitos
-  static List<Habit> getAllHabits() {
-    var box = Hive.box<Habit>('habits');
-    return box.values.toList();
+  void markAsCompletedWithDuration(DateTime date, Duration duration) {
+    if (duration >= targetDuration) {
+      super.markAsCompleted(date);
+    }
   }
+}
 
-  // Deletar um hábito pela key
-  static void deleteHabit(String key) {
-    var box = Hive.box<Habit>('habits');
-    box.delete(key);
+/// Hábito baseado em tarefas
+class TaskBasedHabit extends Habit {
+  int targetTasks;
+
+  TaskBasedHabit(
+      String name, String description, String color, int icon, this.targetTasks)
+      : super(
+          name: name,
+          description: description,
+          color: color,
+          icon: icon,
+        );
+
+  void markAsCompletedWithTasks(DateTime date, int tasksCompleted) {
+    if (tasksCompleted >= targetTasks) {
+      super.markAsCompleted(date);
+    }
   }
 }
 
